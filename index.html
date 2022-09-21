@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Browser</title>
+</head>
+
+<body>
+	<video controls autoplay width="640" height="480">
+		<source src="Modulo1_Breaches.mp4" type="video/mp4" />
+	</video>
+    <div class="preguntasportema" style="background: linear-gradient(to right, #020745, #75060e);
+    color: white;"> 
+<fieldset>
+	<legend>Cuestionario Breaches</legend>
+	<div id="test">
+		<div class="cuestion">1. Mencione una causa organizativa de la fuga de datos</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="0" value="a">&nbsp;a : Acceso no autorizado a sistemas e infraestructuras.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="b">&nbsp;b : Falta de clasificaci&oacute;n de la informaci&oacute;n.&nbsp;</label>
+			<label>
+				<input type="radio" name="0" value="c">&nbsp;c : Uso de tecnolog&iacute;as m&oacute;viles para el trabajo diario.&nbsp;</label>
+		</div>
+		<div class="cuestion">2. Seleccione un tipo de consecuencia de fuga de datos</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="1" value="a">&nbsp;a : Da&ntilde;o de imagen.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="b">&nbsp;b : Da&ntilde;os f&iacute;sicos.&nbsp;</label>
+			<label>
+				<input type="radio" name="1" value="c">&nbsp;c : Despido.&nbsp;</label>
+		</div>
+		<div class="cuestion">3. Un consejo para reducir la fuga de datos corresponde a:</div>
+		<div class="respuestas">
+			<label>
+				<input type="radio" name="2" value="a">&nbsp;a : Confiar en cualquier persona interna o entidad.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="b">&nbsp;b : Optimizaci&oacute;n de herramientas de seguridad.&nbsp;</label>
+			<label>
+				<input type="radio" name="2" value="c">&nbsp;c : Estocolmo&nbsp;</label>
+		</div>
+	</div>
+	<button id="boton">Mostrar resultado</button>
+	<div id="resultado">
+		<br>
+	</div>
+	<script>
+		const contenedor = document.getElementById("test");
+		const botonRes = document.getElementById("boton");
+		const resultadoTest = document.getElementById("resultado");
+
+		const preguntas = [
+			{
+				pregunta: "1. Mencione una causa organizativa de la fuga de datos",
+				respuestas:
+				{
+					a: "Acceso no autorizado a sistemas e infraestructuras.",
+					b: "Falta de clasificación de la información.",
+					c: "Uso de tecnologías móviles para el trabajo diario.",
+				},
+				respuestaCorrecta: "b",
+			},
+			{
+				pregunta: "2. Seleccione un tipo de consecuencia de fuga de datos",
+				respuestas:
+				{
+					a: "Daño de imagen.",
+					b: "Daños físicos.",
+					c: "Despido.",
+				},
+				respuestaCorrecta: "a",
+			},
+			{
+				pregunta: "3. Un consejo para reducir la fuga de datos corresponde a:",
+				respuestas:
+				{
+					a: "Confiar en cualquier persona interna o entidad.",
+					b: "Optimización de herramientas de seguridad.",
+					c: "Estocolmo",
+				},
+				respuestaCorrecta: "b",
+			},
+
+		];
+
+		function mostrarTest()
+		{
+			const preguntasYrespuestas = [];
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+
+				const respuestas = [];
+
+				for (letraRespuesta in preguntaActual.respuestas)
+				{
+
+					respuestas.push(
+
+						`
+        <label>
+                  <input type="radio" name="${numeroDePregunta}" value="${letraRespuesta}" />
+                  ${letraRespuesta} : ${preguntaActual.respuestas[letraRespuesta]} <br>
+              </label>` 
+					);
+                   
+				}
+
+				preguntasYrespuestas.push(
+					`
+      <div class="cuestion">${preguntaActual.pregunta}</div>
+      
+          <div class="respuestas"> ${respuestas.join("")} </div>
+          `
+				);
+			});
+
+			contenedor.innerHTML = preguntasYrespuestas.join("");
+		}
+
+		mostrarTest();
+
+		function mostrarResultado()
+		{
+			const respuestas = contenedor.querySelectorAll(".respuestas");
+			let respuestasCorrectas = 0;
+
+			preguntas.forEach((preguntaActual, numeroDePregunta) =>
+			{
+				const todasLasRespuestas = respuestas[numeroDePregunta];
+				const checkboxRespuestas = `input[name='${numeroDePregunta}']:checked`;
+				const respuestaElegida = (
+					todasLasRespuestas.querySelector(checkboxRespuestas) ||
+					{}
+				).value;
+
+				if (respuestaElegida === preguntaActual.respuestaCorrecta)
+				{
+					respuestasCorrectas++;
+
+					respuestas[numeroDePregunta].style.color = "blue";
+				}
+				else
+				{
+					respuestas[numeroDePregunta].style.color = "red";
+				}
+			});
+
+			resultadoTest.innerHTML =
+				"Usted ha acertado " +
+				respuestasCorrectas +
+				" preguntas de un total de " +
+				preguntas.length;
+		}
+
+		botonRes.addEventListener("click", mostrarResultado);
+
+	</script>
+       </div>
+
+</fieldset>
+</body>
