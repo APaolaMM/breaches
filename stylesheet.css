@@ -29,3 +29,25 @@ body {
     border-image: linear-gradient(to bottom, #020745 0%, #75060e 100%);
     border-image-slice: 1;
 }
+.botontranscripcion {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;	
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #75060dbf;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+.botontranscripcion:hover {
+    background-color: #75060e
+}
+.botontranscripcion:active {
+    background-color: #75060e;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
